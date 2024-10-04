@@ -6,7 +6,7 @@ import uuid
 from pandasai import SmartDataframe, Agent
 from AutoClean import AutoClean
 
-llm = Ollama(model="mistral", base_url="https://3555-34-82-58-48.ngrok-free.app")
+llm = Ollama(model="qwen2.5:7b-instruct-q4_0", base_url="https://32a1-35-240-171-223.ngrok-free.app/")
 
 if 'history' not in st.session_state:
     st.session_state.history = []
@@ -26,20 +26,20 @@ if uploader_file is not None:
     st.write(cleaned_data.head(3))
 
     df = SmartDataframe(cleaned_data, config={"llm": llm})
-    agent = Agent(cleaned_data, config={"llm": llm}, description="the query should reflect the exact names of the columns")
+    # agent = Agent(cleaned_data, config={"llm": llm}, description="the query should reflect the exact names of the columns")
 
     prompt = st.chat_input("Enter your prompt:")
 
     if prompt:
         with st.spinner("Generating response..."):
-            rephrase = agent.rephrase_query(prompt)
-            response = df.chat(rephrase)
+            # rephrase = agent.rephrase_query(prompt)
+            response = df.chat(prompt)
 
             with st.expander("Table:"):
                 st.write(response)
 
             with st.expander("Rephrase:"):
-                st.write(rephrase)
+                st.write(prompt)
 
             # Ensure the response is treated as a string
             response_str = str(response)
