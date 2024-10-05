@@ -14,9 +14,9 @@ st.set_page_config(
 
 def read_data(file):
     if file.name.endswith(".csv"):
-        return pd.read_csv(file)
+        return pd.read_csv(file,encoding='ISO-8859-1')
     else:
-        return pd.read_excel(file)
+        return pd.read_excel(file,encoding='ISO-8859-1')
 
 
 st.title("🤖 DataFrame ChatBot - Ollama")
@@ -49,7 +49,7 @@ if user_prompt:
     st.chat_message("user").markdown(user_prompt)
     st.session_state.chat_history.append({"role":"user","content": user_prompt})
 
-    llm = ChatOllama(model="qwen2.5:7b-instruct-q8_0", temperature=0, base_url="https://85e9-34-83-209-54.ngrok-free.app")
+    llm = ChatOllama(model="qwen2.5:7b-instruct-q8_0", temperature=0, base_url="https://a102-35-229-160-204.ngrok-free.app/`")
 
     pandas_df_agent = create_pandas_dataframe_agent(
         llm,
